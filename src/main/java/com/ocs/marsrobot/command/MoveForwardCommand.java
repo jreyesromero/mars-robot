@@ -4,10 +4,12 @@ import com.ocs.marsrobot.model.Robot;
 
 public class MoveForwardCommand implements Command {
 
+    private final static int FORWARD_BATTERY_CONSUMPTION = 3;
+
     @Override
     public void execute(Robot robot) {
-        //Orientation orientation = robot.getPosition().getOrientation().left();
-        //robot.getPosition().setOrientation(orientation);
-        System.out.println("MoveForwardCommand");
+        //System.out.println("FORWARD");
+        robot.setBattery(robot.getBattery()-FORWARD_BATTERY_CONSUMPTION);
+        //System.out.println("Battery after FORWARD: " + robot.getBattery());
     }
 }
