@@ -35,11 +35,12 @@ public class MarsRobotApplicationController {
         samplesCollected.add("Si");
         response.setVisitedCells(visitedCells);
         response.setSamplesCollected(samplesCollected);
-        response.setBattery(request.getBattery());
+        ;
         response.setFinalPosition(finalPosition);
 
 
         Robot robot = marsRobotService.startRobot(request);
+        response.setBattery(robot.getBattery());
 
         return response;
         /*return "Mars robot information request receveid. \nCommands: " + request.getCommands()

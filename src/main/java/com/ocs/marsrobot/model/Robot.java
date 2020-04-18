@@ -2,12 +2,20 @@ package com.ocs.marsrobot.model;
 
 import lombok.Data;
 
-@Data public class Robot {
-    int battery;
-    private Position position;
+import java.util.ArrayList;
 
-    public Robot(int battery, Position position) {
+@Data public class Robot {
+    private int battery;
+    private Position position;
+    private ArrayList<ArrayList<String>> terrain;
+
+    public Robot(){}
+
+    public Robot(int battery,
+                 Position position,
+                 ArrayList<ArrayList<String>> terrain) {
         this.battery = battery;
         this.position = position;
+        this.terrain = terrain;
     }
 }
