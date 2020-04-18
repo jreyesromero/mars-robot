@@ -1,6 +1,7 @@
 package com.ocs.marsrobot.validator;
 
 import com.ocs.marsrobot.validator.TerrainValidator;
+import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,9 @@ public class TerrainValidatorTest {
         materials.add("O");
         terrain.add(materials);
 
-        Assertions.assertFalse(terrainValidator.validateTerrain(terrain));
+        Assertions.assertThrows(MaterialDoesNotValidException.class, () -> {
+            terrainValidator.validateTerrain(terrain);
+        });
     }
 
 }

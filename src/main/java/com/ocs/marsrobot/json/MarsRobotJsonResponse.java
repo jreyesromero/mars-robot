@@ -6,35 +6,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
-/*
-{
-    "VisitedCells": [
-        {
-            "X": 0,
-            "Y": 0
-        },
-        {
-            "X": 1,
-            "Y": 0
-        }
-    ],
-    "SamplesCollected": [
-        "Fe",
-        "Si",
-        "W"
-    ],
-    "Battery": 8,
-    "FinalPosition": {
-        "Location": {
-            "X": 0,
-            "Y": 2
-        },
-        "Facing": "South"
-     }
-}
-
-*/
-
 @Data public class MarsRobotJsonResponse {
     private ArrayList<Location> visitedCells;
     private ArrayList<String> samplesCollected;

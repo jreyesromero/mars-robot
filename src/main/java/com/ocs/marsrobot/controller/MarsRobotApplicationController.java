@@ -5,6 +5,8 @@ import com.ocs.marsrobot.model.Location;
 import com.ocs.marsrobot.model.Position;
 import com.ocs.marsrobot.model.Robot;
 import com.ocs.marsrobot.service.MarsRobotService;
+import com.ocs.marsrobot.handler.MarsRobotErrorHandler;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +20,25 @@ import java.util.ArrayList;
 @RestController
 public class MarsRobotApplicationController {
 
-    MarsRobotService marsRobotService;
+    private MarsRobotService marsRobotService;
+    private MarsRobotErrorHandler errorHandler;
 
     @PostMapping(path = "/postRequest")
     @ResponseBody
     public MarsRobotJsonResponse marsRobotHandleRequest(@RequestBody MarsRobotJsonRequest request) {
+
         MarsRobotJsonResponse response = new MarsRobotJsonResponse();
+        // Robot start up
+        try {
+            Robot robot = marsRobotService.startRobot(request);
+            response.setBattery(robot.getBattery());
+        } catch (Exception e) {
+            response = errorHandler.handler(e);
+            return response;
+        }
+
+        // Just to test that response json works
+        // TO BE REMOVED LATER
         ArrayList<Location> visitedCells = new ArrayList<Location>();
         ArrayList<String> samplesCollected = new ArrayList<String>();
         Location location = new Location(1,3);
@@ -35,13 +50,7 @@ public class MarsRobotApplicationController {
         samplesCollected.add("Si");
         response.setVisitedCells(visitedCells);
         response.setSamplesCollected(samplesCollected);
-        ;
         response.setFinalPosition(finalPosition);
-
-
-        Robot robot = marsRobotService.startRobot(request);
-        response.setBattery(robot.getBattery());
-
         return response;
         /*return "Mars robot information request receveid. \nCommands: " + request.getCommands()
                 + " \nbattery: " + request.getBattery()

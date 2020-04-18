@@ -1,5 +1,7 @@
 package com.ocs.marsrobot.validator;
 
+import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
+
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class TerrainValidator {
             case "OBS":
                 return true;
             default:
-                return false;
+                throw new MaterialDoesNotValidException();
         }
 
     }
