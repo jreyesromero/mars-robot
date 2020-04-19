@@ -50,4 +50,13 @@ public class LocationValidator {
         return false;
     }
 
+    public boolean checkIfIsObstacle(Location nextLocation, Robot robot) {
+        String nextLocationMaterial = robot.getTerrain().get(nextLocation.getY()).get(nextLocation.getX());
+        if (nextLocationMaterial.toUpperCase().equals("OBS")) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

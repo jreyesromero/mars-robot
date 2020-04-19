@@ -19,30 +19,28 @@ import java.util.ArrayList;
     private Integer axisX;
     private Integer axisY;
     private String currentFacing;
+    private Position position;
 
-    public Position getNextCellToVisit(Position position, String command) {
-        this.setAxisX(position.getLocation().getX());
-        this.setAxisY(position.getLocation().getY());
-        this.setCurrentFacing(position.getFacing().toUpperCase());
-
-        System.out.println("MarsRobotPositionHandler");
-        System.out.println("\nX: " + this.axisX);
-        System.out.println("\nX: " + this.axisY);
-        System.out.println("\ncurrentFacing: " + this.currentFacing);
-        System.out.println("\ncommand: " + command);
+    //public Position getNextCellToVisit(Position position, String command) {
+    public Position getNextCellToVisit(String command) {
+        this.setAxisX(this.position.getLocation().getX());
+        this.setAxisY(this.position.getLocation().getY());
+        this.setCurrentFacing(this.position.getFacing().toUpperCase());
 
         switch (command) {
             case MOVE_FORWARD_COMMAND_DESCRIPTION:
-                return getNextCellToVisitWhenMoveForward(position);
+                return getNextCellToVisitWhenMoveForward();
             case MOVE_BACKWARDS_COMMAND_DESCRIPTION:
-                return getNextCellToVisitWhenMoveBackwards(position);
+                return getNextCellToVisitWhenMoveBackwards();
             default:
-                return position;
+                return this.position;
         }
     }
 
-    private Position getNextCellToVisitWhenMoveForward(Position position) {
-        System.out.println("getNextCellToVisit. currentFacing: " + this.currentFacing);
+    //private Position getNextCellToVisitWhenMoveForward(Position position) {
+    private Position getNextCellToVisitWhenMoveForward() {
+        Position newPosition = new Position(this.position.getLocation(), this.position.getFacing());
+
         switch (this.currentFacing) {
             case "NORTH":
                 axisY++;
@@ -59,14 +57,13 @@ import java.util.ArrayList;
             default:
         }
 
-        position.getLocation().setX(axisX);
-        position.getLocation().setY(axisY);
-        System.out.println("Next cell to visit:\n X: " + position.getLocation().getX()
-                + " Y: " + position.getLocation().getY());
-        return position;
+        newPosition.setLocation(new Location(axisX,axisY));
+        return newPosition;
     }
 
-    private Position getNextCellToVisitWhenMoveBackwards(Position position) {
+    private Position getNextCellToVisitWhenMoveBackwards() {
+        Position newPosition = new Position(this.position.getLocation(), this.position.getFacing());
+
         switch (this.currentFacing) {
             case "NORTH":
                 axisY--;
@@ -83,11 +80,9 @@ import java.util.ArrayList;
             default:
         }
 
-        position.getLocation().setX(axisX);
-        position.getLocation().setY(axisY);
-        System.out.println("Next cell to visit:\n X: " + position.getLocation().getX()
-                + " Y: " + position.getLocation().getY());
-        return position;
+        newPosition.setLocation(new Location(axisX,axisY));
+        return newPosition;
+
     }
 
 }

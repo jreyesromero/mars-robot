@@ -16,11 +16,17 @@ public class MoveForwardCommand implements Command {
 
     @Override
     public void execute(Robot robot) {
-        Position nextPosition = positionHandler.getNextCellToVisit(robot.getPosition(), this.getCommandType());
+        positionHandler.setPosition(robot.getPosition());
+        Position nextPosition = positionHandler.getNextCellToVisit(this.getCommandType());
+        Location nextLocation = nextPosition.getLocation();
 
-        if (locationValidator.validateCoordinate(nextPosition.getLocation(),robot)) {
+        if (locationValidator.validateCoordinate(nextLocation,robot)) {
+            if (locationValidator.checkIfIsObstacle(nextLocation,robot)) {
+                // execute
+            }
             //stores visited cell
-            robot.storeVisitedCell(nextPosition.getLocation());
+            robot.setPosition(nextPosition);
+            robot.storeVisitedCell(nextLocation);
             robot.setBattery(robot.getBattery()-FORWARD_BATTERY_CONSUMPTION);
         } else {
             System.out.println("Nueva posición INVALIDA");

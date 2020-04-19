@@ -16,12 +16,15 @@ public class MoveBackwardsCommand implements Command {
 
     @Override
     public void execute(Robot robot) {
-        Position nextPosition = positionHandler.getNextCellToVisit(robot.getPosition(), this.getCommandType());
+        positionHandler.setPosition(robot.getPosition());
+        Position nextPosition = positionHandler.getNextCellToVisit(this.getCommandType());
+        Location nextLocation = nextPosition.getLocation();
 
-        if (locationValidator.validateCoordinate(nextPosition.getLocation(),
+        if (locationValidator.validateCoordinate(nextLocation,
                 robot)) {
             //stores visited cell
-            robot.storeVisitedCell(nextPosition.getLocation());
+            robot.setPosition(nextPosition);
+            robot.storeVisitedCell(nextLocation);
             robot.setBattery(robot.getBattery()-BACKWARDS_BATTERY_CONSUMPTION);
         } else {
             System.out.println("Nueva posición INVALIDA");
