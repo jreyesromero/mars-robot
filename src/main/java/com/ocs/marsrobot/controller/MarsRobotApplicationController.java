@@ -30,39 +30,29 @@ public class MarsRobotApplicationController {
         MarsRobotJsonResponse response = new MarsRobotJsonResponse();
         // Robot start up
         try {
-            Robot robot = marsRobotService.startRobot(request);
-            response.setBattery(robot.getBattery());
+            Robot robot = marsRobotService.runRobot(request);
+            response = buildJsonResponse(robot);
         } catch (Exception e) {
             response = errorHandler.handler(e);
-            return response;
         }
 
-        // Just to test that response json works
-        // TO BE REMOVED LATER
-        ArrayList<Location> visitedCells = new ArrayList<Location>();
-        ArrayList<String> samplesCollected = new ArrayList<String>();
-        Location location = new Location(1,3);
-        Position finalPosition = new Position(location, "WEST");
-
-        visitedCells.add(new Location(1,2));
-        visitedCells.add(new Location(3,3));
-        samplesCollected.add("Fe");
-        samplesCollected.add("Si");
-        response.setVisitedCells(visitedCells);
-        response.setSamplesCollected(samplesCollected);
-        response.setFinalPosition(finalPosition);
         return response;
-        /*return "Mars robot information request receveid. \nCommands: " + request.getCommands()
-                + " \nbattery: " + request.getBattery()
-                + "\nTerrain: " + request.getTerrain()
-                + "\nX coordinate: " + request.getInitialPosition().getLocation().getX()
-                + "\nY coordinate: " + request.getInitialPosition().getLocation().getY()
-                + "\nfacing: " + request.getInitialPosition().getFacing().toUpperCase();*/
+
     }
 
     @Autowired
     public void setMarsRobotService(MarsRobotService marsRobotService) {
         this.marsRobotService = marsRobotService;
+    }
+
+    private MarsRobotJsonResponse buildJsonResponse(Robot robot) {
+        MarsRobotJsonResponse response = new MarsRobotJsonResponse();
+        response.setBattery(robot.getBattery());
+        response.setFinalPosition(robot.getPosition());
+        response.setSamplesCollected(robot.getSamplesCollected());
+        response.setVisitedCells(robot.getVisitedCells());
+
+        return response;
     }
 
 }

@@ -7,11 +7,13 @@ import com.ocs.marsrobot.model.Location;
 import com.ocs.marsrobot.validator.TerrainValidator;
 import com.ocs.marsrobot.validator.LocationValidator;
 import com.ocs.marsrobot.parse.ParseRobotCommands;
+import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Exception;
 
 @Service
 public class MarsRobotService {
@@ -20,39 +22,27 @@ public class MarsRobotService {
     TerrainValidator terrainValidator;
 
 
-    public Robot startRobot(MarsRobotJsonRequest request) {
+    public Robot runRobot(MarsRobotJsonRequest request) throws Exception {
 
-        if (!terrainValidator.validateTerrain(request.getTerrain()))
-        {
-            System.out.println("Algun elemento del terrain es no valido");
-            return null;
+        Robot robot = new Robot();
+        try {
+            if (terrainValidator.validateTerrain(request.getTerrain())) {
+                robot.setBattery(request.getBattery());
+                robot.setPosition(request.getInitialPosition());
+                robot.setTerrain(request.getTerrain());
+                robot.setSamplesCollected(new ArrayList<String>());
+                robot.setVisitedCells(new ArrayList<Location>());
+
+                robot.storeVisitedCell(request.getInitialPosition().getLocation());
+
+                List<Command> commandList = parseRobotCommands.parse(request.getCommands());
+                commandList.stream().forEach(command -> command.execute(robot));
+            }
+        } catch (MaterialDoesNotValidException materialException) {
+                throw new Exception(materialException);
         }
 
-        System.out.println("El terrain es VALIDO");
-        Robot robot = new Robot(request.getBattery(),
-                request.getInitialPosition(),
-                request.getTerrain(),
-                new ArrayList<String>(),
-                new ArrayList<Location>());
 
-        robot.storeVisitedCell(request.getInitialPosition().getLocation());
-        System.out.println("Initial visited cells in robot: " + robot.getVisitedCells());
-
-        /*int externalTerrainCount = robot.getTerrain().size();
-         System.out.println("Total TERRAIN size: " + externalTerrainCount);
-         for (int i = 0; i < externalTerrainCount; i++) {
-             int internalTerrainCount = robot.getTerrain().get(i).size();
-             for (int j = 0; j < internalTerrainCount; j++) {
-                 String material = robot.getTerrain().get(i).get(j);
-                 System.out.println("x: " + j + " y: " + i + " material: " + material);
-             }
-        }*/
-
-        List<Command> commandList = parseRobotCommands.parse(request.getCommands());
-        commandList.stream().forEach(command -> command.execute(robot));
-
-        System.out.println("Final list of visited cells:");
-        robot.getVisitedCells().stream().forEach(location -> System.out.println("x: " + location.getX() + " y: " + location.getY()));
         System.out.println("Visited cells final: " + robot.getVisitedCells());
         System.out.println("Final list of stored materials:\n" + robot.getSamplesCollected());
 

@@ -10,8 +10,7 @@ import java.util.List;
     private Position position;
     private ArrayList<ArrayList<String>> terrain;
     private ArrayList<String> samplesCollected;
-    //private ArrayList<Location> visitedCells;
-    private List<Location> visitedCells;
+    private ArrayList<Location> visitedCells;
 
     public Robot(){}
 
@@ -19,7 +18,7 @@ import java.util.List;
                  Position position,
                  ArrayList<ArrayList<String>> terrain,
                  ArrayList<String> samplesCollected,
-                 List<Location> visitedCells) {
+                 ArrayList<Location> visitedCells) {
         this.battery = battery;
         this.position = position;
         this.terrain = terrain;
