@@ -2,6 +2,7 @@ package com.ocs.marsrobot.parse;
 
 import com.ocs.marsrobot.command.*;
 import org.springframework.stereotype.Component;
+import com.ocs.marsrobot.exception.CommandDoesNotValidException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,7 @@ public class ParseRobotCommands {
             case "E":
                 return new ExtendSolarPanelsCommand();
             default:
-                System.out.println("Command value not valid"); //TBD
-                return null;
-            /* default:
                 throw new CommandDoesNotValidException();
-             */
         }
     }
 

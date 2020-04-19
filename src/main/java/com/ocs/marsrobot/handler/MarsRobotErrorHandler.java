@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
+import com.ocs.marsrobot.exception.CommandDoesNotValidException;
 import com.ocs.marsrobot.json.MarsRobotJsonResponse;
 import com.ocs.marsrobot.model.Position;
 import com.ocs.marsrobot.model.Location;
@@ -19,6 +20,7 @@ public class MarsRobotErrorHandler {
 
     private static final String DEFAULT = "There is an exception while treating input request";
     private static final String MATERIAL_NOT_VALID = "Terrain includes a non valid material";
+    private static final String COMMAND_NOT_VALID = "Command not valid";
 
     public MarsRobotJsonResponse handler(Exception exception) {
 
@@ -30,6 +32,10 @@ public class MarsRobotErrorHandler {
             //return ResponseEntity.badRequest().body(MATERIAL_NOT_VALID);
         }
 
+        if (exception instanceof CommandDoesNotValidException) {
+            samplesCollected.add(COMMAND_NOT_VALID);
+        }
+
         marsRobotJsonResponse.setSamplesCollected(samplesCollected);
         System.out.println("ErrorHandler. Exception returned:\n" + marsRobotJsonResponse);
         return marsRobotJsonResponse;
@@ -38,13 +44,13 @@ public class MarsRobotErrorHandler {
     private MarsRobotJsonResponse configureResponseByDefault() {
         ArrayList<Location> visitedCells = new ArrayList<Location>();
         visitedCells.add(new Location(0,0));
-        ArrayList<String> samplesCollected = new ArrayList<String>();
-        samplesCollected.add(DEFAULT);
+        ArrayList<String> defaultSamplesCollected = new ArrayList<String>();
+        defaultSamplesCollected.add(DEFAULT);
         int battery = 0;
         Position finalPosition = new Position(new Location(0,0), "DEFAULT");
 
         MarsRobotJsonResponse response = new MarsRobotJsonResponse(visitedCells,
-                samplesCollected, battery, finalPosition);
+                defaultSamplesCollected, battery, finalPosition);
         return response;
     }
 }
