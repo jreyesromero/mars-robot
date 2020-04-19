@@ -3,6 +3,7 @@ package com.ocs.marsrobot.command;
 import com.ocs.marsrobot.model.Robot;
 import com.ocs.marsrobot.validator.LocationValidator;
 import com.ocs.marsrobot.handler.MarsRobotPositionHandler;
+import com.ocs.marsrobot.handler.MarsRobotBackoffStrategyHandler;
 import com.ocs.marsrobot.model.Position;
 import com.ocs.marsrobot.model.Location;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class MoveBackwardsCommand implements Command {
     private final static String MOVE_BACKWARDS_COMMAND_DESCRIPTION = "MoveBackwardsCommand";
     LocationValidator locationValidator = new LocationValidator();
     MarsRobotPositionHandler positionHandler = new MarsRobotPositionHandler();
+    MarsRobotBackoffStrategyHandler backOffHandler = new MarsRobotBackoffStrategyHandler();
 
     @Override
     public void execute(Robot robot) {
@@ -20,14 +22,18 @@ public class MoveBackwardsCommand implements Command {
         Position nextPosition = positionHandler.getNextCellToVisit(this.getCommandType());
         Location nextLocation = nextPosition.getLocation();
 
-        if (locationValidator.validateCoordinate(nextLocation,
-                robot)) {
-            //stores visited cell
-            robot.setPosition(nextPosition);
-            robot.storeVisitedCell(nextLocation);
-            robot.setBattery(robot.getBattery()-BACKWARDS_BATTERY_CONSUMPTION);
-        } else {
-            System.out.println("Nueva posición INVALIDA");
+        if (locationValidator.validateCoordinate(nextLocation,robot)) {
+            if (locationValidator.checkIfIsObstacle(nextLocation, robot)) {
+                // execute
+                robot.increaseBackOffStrategyIndex();
+                backOffHandler.runBackoffStrategy(robot);
+            } else {
+                //stores visited cell
+                robot.setPosition(nextPosition);
+                robot.setBackOffStrategyIndex(0);
+                robot.storeVisitedCell(nextLocation);
+                robot.setBattery(robot.getBattery() - BACKWARDS_BATTERY_CONSUMPTION);
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
     private ArrayList<ArrayList<String>> terrain;
     private ArrayList<String> samplesCollected;
     private ArrayList<Location> visitedCells;
+    private int backOffStrategyIndex;
 
     public Robot(){}
 
@@ -38,5 +39,9 @@ import java.util.List;
         Integer x = visitedLocation.getX();
         Integer y = visitedLocation.getY();
         this.visitedCells.add(new Location(x,y));
+    }
+
+    public void increaseBackOffStrategyIndex() {
+        this.backOffStrategyIndex++;
     }
 }

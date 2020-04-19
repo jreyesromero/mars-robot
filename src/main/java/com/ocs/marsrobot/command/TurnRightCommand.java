@@ -22,4 +22,5 @@ public class TurnRightCommand implements Command {
     public String getCommandType() {
         return TURN_RIGHT_COMMAND_DESCRIPTION;
     }
+
 }

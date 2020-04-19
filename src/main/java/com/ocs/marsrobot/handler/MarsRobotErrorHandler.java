@@ -43,7 +43,6 @@ public class MarsRobotErrorHandler {
         }
 
         marsRobotJsonResponse.setSamplesCollected(samplesCollected);
-        System.out.println("ErrorHandler. Exception returned:\n" + marsRobotJsonResponse);
         return marsRobotJsonResponse;
     }
 

@@ -26,4 +26,5 @@ public class TakeSampleCommand implements Command {
         String material = terrain.get(y).get(x);
         robot.getSamplesCollected().add(material);
     }
+
 }

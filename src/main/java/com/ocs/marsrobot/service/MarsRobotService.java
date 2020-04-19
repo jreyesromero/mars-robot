@@ -32,6 +32,7 @@ public class MarsRobotService {
                 robot.setTerrain(request.getTerrain());
                 robot.setSamplesCollected(new ArrayList<String>());
                 robot.setVisitedCells(new ArrayList<Location>());
+                robot.setBackOffStrategyIndex(0);
 
                 robot.storeVisitedCell(request.getInitialPosition().getLocation());
 
@@ -41,10 +42,6 @@ public class MarsRobotService {
         } catch (MaterialDoesNotValidException materialException) {
                 throw new Exception(materialException);
         }
-
-
-        System.out.println("Visited cells final: " + robot.getVisitedCells());
-        System.out.println("Final list of stored materials:\n" + robot.getSamplesCollected());
 
         return robot;
     }

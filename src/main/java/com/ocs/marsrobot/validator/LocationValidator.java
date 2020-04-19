@@ -20,8 +20,6 @@ public class LocationValidator {
         Integer robotMaxXCoordinate = robot.getMaxXValueFromTerrain();
         Integer robotMaxYCoordinate = robot.getMaxYValueFromTerrain();
 
-        System.out.println("LocationValidator");
-
         if (isNewXCoordinateValid(robotMaxXCoordinate, newLocation.getX()) &&
                 isNewYCoordinateValid(robotMaxYCoordinate, newLocation.getY())) {
             return true;
