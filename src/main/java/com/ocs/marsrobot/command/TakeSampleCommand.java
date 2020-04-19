@@ -5,6 +5,7 @@ import com.ocs.marsrobot.model.Robot;
 public class TakeSampleCommand implements Command {
 
     private final static int TAKE_SAMPLE_BATTERY_CONSUMPTION = 8;
+    private final static String TAKE_SAMPLE_COMMAND_DESCRIPTION = "TakeSampleCommand";
 
     @Override
     public void execute(Robot robot) {
@@ -13,5 +14,10 @@ public class TakeSampleCommand implements Command {
         robot.setBattery(robot.getBattery()-TAKE_SAMPLE_BATTERY_CONSUMPTION);
         //System.out.println("Battery after TAKE SAMPLE: " + robot.getBattery());
 
+    }
+
+    @Override
+    public String getCommandType() {
+        return TAKE_SAMPLE_COMMAND_DESCRIPTION;
     }
 }
