@@ -23,7 +23,7 @@ public class MarsRobotApplicationController {
     private MarsRobotService marsRobotService;
     private MarsRobotErrorHandler errorHandler;
 
-    @PostMapping(path = "/postRequest")
+    @PostMapping(path = "/robot")
     @ResponseBody
     public MarsRobotJsonResponse marsRobotHandleRequest(@RequestBody MarsRobotJsonRequest request) {
 
