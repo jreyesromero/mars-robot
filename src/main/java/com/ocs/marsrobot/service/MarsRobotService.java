@@ -3,6 +3,7 @@ package com.ocs.marsrobot.service;
 import com.ocs.marsrobot.command.Command;
 import com.ocs.marsrobot.json.MarsRobotJsonRequest;
 import com.ocs.marsrobot.model.Robot;
+import com.ocs.marsrobot.model.Location;
 import com.ocs.marsrobot.validator.TerrainValidator;
 import com.ocs.marsrobot.validator.LocationValidator;
 import com.ocs.marsrobot.parse.ParseRobotCommands;
@@ -31,9 +32,13 @@ public class MarsRobotService {
         Robot robot = new Robot(request.getBattery(),
                 request.getInitialPosition(),
                 request.getTerrain(),
-                new ArrayList<String>());
+                new ArrayList<String>(),
+                new ArrayList<Location>());
 
-        int externalTerrainCount = robot.getTerrain().size();
+        robot.storeVisitedCell(request.getInitialPosition().getLocation());
+        System.out.println("Initial visited cells in robot: " + robot.getVisitedCells());
+
+        /*int externalTerrainCount = robot.getTerrain().size();
          System.out.println("Total TERRAIN size: " + externalTerrainCount);
          for (int i = 0; i < externalTerrainCount; i++) {
              int internalTerrainCount = robot.getTerrain().get(i).size();
@@ -41,11 +46,14 @@ public class MarsRobotService {
                  String material = robot.getTerrain().get(i).get(j);
                  System.out.println("x: " + j + " y: " + i + " material: " + material);
              }
-        }
+        }*/
 
         List<Command> commandList = parseRobotCommands.parse(request.getCommands());
         commandList.stream().forEach(command -> command.execute(robot));
 
+        System.out.println("Final list of visited cells:");
+        robot.getVisitedCells().stream().forEach(location -> System.out.println("x: " + location.getX() + " y: " + location.getY()));
+        System.out.println("Visited cells final: " + robot.getVisitedCells());
         System.out.println("Final list of stored materials:\n" + robot.getSamplesCollected());
 
         return robot;
