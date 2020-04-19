@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 public class ParseRobotCommandsTest {
-    ParseRobotCommands parseRobotCommands = new ParseRobotCommands();
-
 
     private final static String MOVE_FORWARD_COMMAND_DESCRIPTION = "MoveForwardCommand";
     private final static String MOVE_BACKWARDS_COMMAND_DESCRIPTION = "MoveBackwardsCommand";
@@ -19,6 +17,8 @@ public class ParseRobotCommandsTest {
     private final static String TURN_RIGHT_COMMAND_DESCRIPTION = "TurnRightCommand";
     private final static String TAKE_SAMPLE_COMMAND_DESCRIPTION = "TakeSampleCommand";
     private final static String EXTEND_SOLAR_PANELS_COMMAND_DESCRIPTION = "ExtendSolarPanelsCommand";
+
+    ParseRobotCommands parseRobotCommands = new ParseRobotCommands();
 
     @BeforeEach
     public void setUp() {

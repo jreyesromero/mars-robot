@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
 import com.ocs.marsrobot.exception.CommandDoesNotValidException;
+import com.ocs.marsrobot.exception.LocationDoesNotValidException;
 import com.ocs.marsrobot.json.MarsRobotJsonResponse;
 import com.ocs.marsrobot.model.Position;
 import com.ocs.marsrobot.model.Location;
@@ -21,6 +22,7 @@ public class MarsRobotErrorHandler {
     private static final String DEFAULT = "There is an exception while treating input request";
     private static final String MATERIAL_NOT_VALID = "Terrain includes a non valid material";
     private static final String COMMAND_NOT_VALID = "Command not valid";
+    private static final String LOCATION_NOT_VALID = "Location includes a non valid material";
 
     public MarsRobotJsonResponse handler(Exception exception) {
 
@@ -34,6 +36,10 @@ public class MarsRobotErrorHandler {
 
         if (exception instanceof CommandDoesNotValidException) {
             samplesCollected.add(COMMAND_NOT_VALID);
+        }
+
+        if (exception instanceof LocationDoesNotValidException) {
+            samplesCollected.add(LOCATION_NOT_VALID);
         }
 
         marsRobotJsonResponse.setSamplesCollected(samplesCollected);

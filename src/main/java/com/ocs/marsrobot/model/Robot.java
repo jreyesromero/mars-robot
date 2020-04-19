@@ -18,4 +18,12 @@ import java.util.ArrayList;
         this.position = position;
         this.terrain = terrain;
     }
+
+    public Integer getMaxYValueFromTerrain() {
+        return this.terrain.size();
+    }
+
+    public Integer getMaxXValueFromTerrain() {
+        return this.terrain.get(0).size();
+    }
 }

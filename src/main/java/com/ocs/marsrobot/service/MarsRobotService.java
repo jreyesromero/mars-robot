@@ -4,6 +4,7 @@ import com.ocs.marsrobot.command.Command;
 import com.ocs.marsrobot.json.MarsRobotJsonRequest;
 import com.ocs.marsrobot.model.Robot;
 import com.ocs.marsrobot.validator.TerrainValidator;
+import com.ocs.marsrobot.validator.LocationValidator;
 import com.ocs.marsrobot.parse.ParseRobotCommands;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class MarsRobotService {
 
     ParseRobotCommands parseRobotCommands;
     TerrainValidator terrainValidator;
+
 
     public Robot startRobot(MarsRobotJsonRequest request) {
 
