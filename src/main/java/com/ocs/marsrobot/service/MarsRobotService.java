@@ -30,7 +30,8 @@ public class MarsRobotService {
         System.out.println("El terrain es VALIDO");
         Robot robot = new Robot(request.getBattery(),
                 request.getInitialPosition(),
-                request.getTerrain() );
+                request.getTerrain(),
+                new ArrayList<String>());
 
         int externalTerrainCount = robot.getTerrain().size();
          System.out.println("Total TERRAIN size: " + externalTerrainCount);
@@ -44,6 +45,8 @@ public class MarsRobotService {
 
         List<Command> commandList = parseRobotCommands.parse(request.getCommands());
         commandList.stream().forEach(command -> command.execute(robot));
+
+        System.out.println("Final list of stored materials:\n" + robot.getSamplesCollected());
 
         return robot;
     }

@@ -8,15 +8,18 @@ import java.util.ArrayList;
     private int battery;
     private Position position;
     private ArrayList<ArrayList<String>> terrain;
+    private ArrayList<String> samplesCollected;
 
     public Robot(){}
 
     public Robot(int battery,
                  Position position,
-                 ArrayList<ArrayList<String>> terrain) {
+                 ArrayList<ArrayList<String>> terrain,
+                 ArrayList<String> samplesCollected) {
         this.battery = battery;
         this.position = position;
         this.terrain = terrain;
+        this.samplesCollected = samplesCollected;
     }
 
     public Integer getMaxYValueFromTerrain() {

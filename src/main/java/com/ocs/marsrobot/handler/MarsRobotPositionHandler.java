@@ -2,10 +2,6 @@ package com.ocs.marsrobot.handler;
 
 import org.springframework.stereotype.Component;
 
-import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
-import com.ocs.marsrobot.exception.CommandDoesNotValidException;
-import com.ocs.marsrobot.exception.LocationDoesNotValidException;
-import com.ocs.marsrobot.json.MarsRobotJsonResponse;
 import com.ocs.marsrobot.model.Position;
 import com.ocs.marsrobot.model.Location;
 
@@ -20,9 +16,9 @@ import java.util.ArrayList;
     private final static String TURN_RIGHT_COMMAND_DESCRIPTION = "TurnRightCommand";
 
 
-    Integer axisX;
-    Integer axisY;
-    String currentFacing;
+    private Integer axisX;
+    private Integer axisY;
+    private String currentFacing;
 
     public Position getNextCellToVisit(Position position, String command) {
         this.setAxisX(position.getLocation().getX());
@@ -43,17 +39,6 @@ import java.util.ArrayList;
             default:
                 return position;
         }
-    }
-
-    public String getFacingNewValue(String currentFacing, String command) {
-        this.setCurrentFacing(position.getFacing().toUpperCase());
-        switch (command) {
-            case TURN_LEFT_COMMAND_DESCRIPTION:
-                return
-            default:
-                return currentFacing;
-        }
-
     }
 
     private Position getNextCellToVisitWhenMoveForward(Position position) {
