@@ -47,12 +47,21 @@ public class MarsRobotApplicationController {
 
     private MarsRobotJsonResponse buildJsonResponse(Robot robot) {
         MarsRobotJsonResponse response = new MarsRobotJsonResponse();
+        Position position = robot.getPosition();
+        String capitalFacing = formatFacing(position.getFacing());
+        position.setFacing(capitalFacing);
+        response.setFinalPosition(position);
+
         response.setBattery(robot.getBattery());
-        response.setFinalPosition(robot.getPosition());
+        //response.setFinalPosition(robot.getPosition());
         response.setSamplesCollected(robot.getSamplesCollected());
         response.setVisitedCells(robot.getVisitedCells());
 
         return response;
+    }
+
+    private String formatFacing(String facing) {
+        return facing.substring(0, 1).toUpperCase() + facing.substring(1).toLowerCase();
     }
 
 }
