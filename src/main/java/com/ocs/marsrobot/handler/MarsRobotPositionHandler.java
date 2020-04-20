@@ -21,7 +21,6 @@ import java.util.ArrayList;
     private String currentFacing;
     private Position position;
 
-    //public Position getNextCellToVisit(Position position, String command) {
     public Position getNextCellToVisit(String command) {
         this.setAxisX(this.position.getLocation().getX());
         this.setAxisY(this.position.getLocation().getY());
@@ -37,7 +36,6 @@ import java.util.ArrayList;
         }
     }
 
-    //private Position getNextCellToVisitWhenMoveForward(Position position) {
     private Position getNextCellToVisitWhenMoveForward() {
         Position newPosition = new Position(this.position.getLocation(), this.position.getFacing());
 

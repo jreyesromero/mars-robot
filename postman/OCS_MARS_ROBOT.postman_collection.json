@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "71f63f7f-7539-4b3a-a769-f187461ff904",
+		"name": "OCS_MARS_ROBOT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MARS_ROBOT_POST_REQUEST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n  \"terrain\": [ \r\n    [\"Fe\", \"Fe\", \"Se\"], \r\n    [\"W\", \"Si\", \"Obs\"], \r\n    [\"W\", \"Obs\", \"Zn\"] \r\n  ], \r\n  \"battery\": 50, \r\n  \"commands\": [ \r\n      \"S\", \"F\", \"S\", \"R\", \"F\", \"S\", \"F\", \"S\"\r\n    ], \r\n  \"initialPosition\": { \r\n    \"location\" : { \r\n      \"x\" : 0, \r\n      \"y\" : 0 \r\n    }, \r\n    \"facing\" : \"East\" \r\n  } \r\n} \r\n\r\n"
+				},
+				"url": {
+					"raw": "localhost:8080/robot",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"robot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shutdown",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/shutdown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"shutdown"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

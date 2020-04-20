@@ -25,11 +25,9 @@ public class MoveForwardCommand implements Command {
 
         if (locationValidator.validateCoordinate(nextLocation,robot)) {
             if (locationValidator.checkIfIsObstacle(nextLocation, robot)) {
-                // execute
                 robot.increaseBackOffStrategyIndex();
                 backOffHandler.runBackoffStrategy(robot);
             } else {
-                //stores visited cell
                 robot.setPosition(nextPosition);
                 robot.setBackOffStrategyIndex(0);
                 robot.storeVisitedCell(nextLocation);

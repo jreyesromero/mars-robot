@@ -1,7 +1,5 @@
 package com.ocs.marsrobot.validator;
 
-//import com.ocs.marsrobot.exception.MaterialDoesNotValidException;
-
 import org.springframework.stereotype.Component;
 import com.ocs.marsrobot.model.Robot;
 import com.ocs.marsrobot.model.Location;

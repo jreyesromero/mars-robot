@@ -18,8 +18,6 @@ import java.util.Map;
 @Component
 @Data public class MarsRobotBackoffStrategyHandler {
 
-    //ParseRobotCommands parseRobotCommands;
-
     public void runBackoffStrategy(Robot robot) {
 
         ParseRobotCommands parseRobotCommands = new ParseRobotCommands();

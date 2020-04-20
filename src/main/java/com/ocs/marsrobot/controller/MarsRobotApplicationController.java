@@ -28,7 +28,7 @@ public class MarsRobotApplicationController {
     public MarsRobotJsonResponse marsRobotHandleRequest(@RequestBody MarsRobotJsonRequest request) {
 
         MarsRobotJsonResponse response = new MarsRobotJsonResponse();
-        // Robot start up
+
         try {
             Robot robot = marsRobotService.runRobot(request);
             response = buildJsonResponse(robot);
@@ -53,7 +53,6 @@ public class MarsRobotApplicationController {
         response.setFinalPosition(position);
 
         response.setBattery(robot.getBattery());
-        //response.setFinalPosition(robot.getPosition());
         response.setSamplesCollected(robot.getSamplesCollected());
         response.setVisitedCells(robot.getVisitedCells());
 

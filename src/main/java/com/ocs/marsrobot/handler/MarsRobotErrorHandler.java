@@ -31,7 +31,6 @@ public class MarsRobotErrorHandler {
 
         if (exception instanceof MaterialDoesNotValidException) {
             samplesCollected.add(MATERIAL_NOT_VALID);
-            //return ResponseEntity.badRequest().body(MATERIAL_NOT_VALID);
         }
 
         if (exception instanceof CommandDoesNotValidException) {
